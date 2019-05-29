@@ -1,0 +1,5 @@
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v2.2.3
+    hooks:
+    -   id: flake8
+        args: ['--ignore=E402,E722,W504,W605,E125,W503', 'max-line-length=100']
