@@ -23,21 +23,33 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements/test.txt" }}
+            - v1-dependencies-base-{{ checksum "requirements/base.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-dependencies-base-
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-test-{{ checksum "requirements/test.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-test-
 
       - run:
           name: install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install -r requirements/base.txt
             pip install -r requirements/test.txt
 
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements/test.txt" }}
+          key: v1-dependencies-base-{{ checksum "requirements/base.txt" }}
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-test-{{ checksum "requirements/test.txt" }}
 
       # run tests!
       # this example uses Django's built-in test-runner
