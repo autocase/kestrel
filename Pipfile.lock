@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "66c00060922907b7d327bdb9a12a523964e5f8a84c9aea9bc279881e8fd2a24b"
+            "sha256": "9314fc997f3f0a2bda77851ba05521a02c13933d6ffd0f276bb209e731c9a6ca"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -109,6 +109,13 @@
             ],
             "index": "pypi",
             "version": "==0.1.0"
+        },
+        "falcon-auth": {
+            "hashes": [
+                "sha256:21ee33daf8b615fb24392b6f80bc2287d02bd0a3c4a924180d2678d5cc55838d"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
         },
         "idna": {
             "hashes": [
@@ -230,6 +237,13 @@
             ],
             "index": "pypi",
             "version": "==2.8.2"
+        },
+        "pyjwt": {
+            "hashes": [
+                "sha256:5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e",
+                "sha256:8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"
+            ],
+            "version": "==1.7.1"
         },
         "pyrsistent": {
             "hashes": [
