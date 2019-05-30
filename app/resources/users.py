@@ -1,3 +1,5 @@
+import logging
+
 import falcon
 from falcon.media.validators.jsonschema import validate
 from marshmallow import Schema, fields
@@ -6,6 +8,8 @@ from sqlalchemy.exc import IntegrityError
 from app.db import models
 from app.resources import BaseResource
 from app.schemas import load_schema
+
+log = logging.getLogger(__name__)
 
 
 class UserSchema(Schema):
@@ -49,6 +53,7 @@ class UserResource(BaseResource):
         try:
             model.save(self.db.session)
         except IntegrityError:
+            log.exception("User already exists and can't be created again")
             raise falcon.HTTPBadRequest(
                 "Username exists", "Could not create user due to username already existing"
             )

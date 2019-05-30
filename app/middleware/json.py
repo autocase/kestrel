@@ -1,17 +1,22 @@
 import json
+import logging
 
 import falcon
+
+log = logging.getLogger(__name__)
 
 
 class RequireJSON:
     def process_request(self, req, resp):
         if not req.client_accepts_json:
+            log.error("Request not in JSON format")
             raise falcon.HTTPNotAcceptable(
                 "This API only supports responses encoded as JSON.", href="https://www.json.org/"
             )
 
         if req.method in ("POST", "PUT"):
             if "application/json" not in req.content_type:
+                log.error("Missing application/json content type")
                 raise falcon.HTTPUnsupportedMediaType(
                     "This API only supports requests encoded as JSON. "
                     "You are missing application/json in the request header",
@@ -31,12 +36,14 @@ class JSONTranslator:
 
         body = req.stream.read()
         if not body:
+            log.error("Empty request body")
             raise falcon.HTTPBadRequest("Empty request body", "A valid JSON document is required.")
 
         try:
             req.context.doc = json.loads(body.decode("utf-8"))
 
         except (ValueError, UnicodeDecodeError):
+            log.exception("Request object is invalid JSON")
             raise falcon.HTTPError(
                 falcon.HTTP_753,
                 "Malformed JSON",
@@ -63,6 +70,6 @@ class JSONTranslator:
 def is_json(my_json):
     try:
         json.loads(my_json)
-    except Exception:
+    except json.JSONDecodeError:
         return False
     return True
