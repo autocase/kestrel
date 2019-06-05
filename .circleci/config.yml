@@ -44,13 +44,11 @@ jobs:
           name: run tests
           command: |
             mkdir test-results
-            mkdir test-reports
-            pipenv run pytest
+            pipenv run pytest --flake8 --cov-report html
 
       - store_test_results:
           path:  test-results
 
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          path: html
 
