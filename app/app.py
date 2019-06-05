@@ -7,7 +7,7 @@ from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from falcon_apispec import FalconPlugin
 
-from app.db.manager import Database, StorageError
+from app.db.manager import Database
 from app.middleware.auth import AuthMiddleware
 from app.middleware.json import RequireJSON, JSONTranslator
 from app.routes import build_routes
