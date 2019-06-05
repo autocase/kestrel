@@ -6,6 +6,7 @@ services:
     # Add our nginx configuration
     volumes: 
       - ./nginx/:/etc/nginx/conf.d/
+      - ./:/var/www/
     ports:
       - 80:80
     links:
@@ -42,8 +43,8 @@ services:
       - 8000:8000
     expose:
       - 8000
-#    command:
-#      - /bin/sh -c 'uwsgi --ini /var/www/app/uwsgi.ini --py-autoreload 1'
+    user: root
+    command: /bin/sh -c './docs/sphinx.sh && uwsgi --ini /var/www/app/uwsgi.ini --py-autoreload 1'
 
   redis:
     image: redis:alpine
@@ -53,10 +54,9 @@ services:
     expose:
       - 6379
 
-
   swagger-ui:
     image: swaggerapi/swagger-ui
-    container_name: "swagger"
+    container_name: "openapi"
     ports:
       - "8080:8080"
     environment:

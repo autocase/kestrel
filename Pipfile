@@ -10,6 +10,7 @@ pytest = "*"
 pytest-cov = "*"
 black = "==19.3b0"
 pre-commit = "*"
+sphinx = "*"
 
 [packages]
 requests = "==2.22.0"
