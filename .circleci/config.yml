@@ -1,27 +1,19 @@
 # Python CircleCI 2.0 configuration file
-#
 # Check https://circleci.com/docs/2.0/language-python/ for more details
-#
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.4
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: circleci/python:3.7.3
         environment:
           PIPENV_VENV_IN_PROJECT: true
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/fork
 
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -44,13 +36,13 @@ jobs:
           name: run tests
           command: |
             mkdir test-results
-            mkdir test-reports
-            pipenv run pytest
+            pipenv run pytest --flake8 --cov=app --cov-report=xml --cov-report=html
+
+      - codecov/upload:
+          flags: backend,unittest
 
       - store_test_results:
           path:  test-results
 
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
-
+          path: htmlcov
