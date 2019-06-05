@@ -20,7 +20,7 @@ def client():
 @patch("app.resources.users.models.Users.get_list")
 def test_get_message(get_list_mock, client):
     get_list_mock.return_value = {}
-    doc = json.dumps({u"users": []})
+    doc = {"users": []}
 
     result = client.simulate_get("/users")
     assert result.json == doc
