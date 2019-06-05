@@ -1,9 +1,7 @@
-FROM alpine:latest
+FROM python:3.7.3-alpine3.9
 
 # Install necessary allpine packages
 RUN apk add --no-cache --update \
-        py-pip \
-        python3-dev \
         build-base \
         linux-headers \
         pcre-dev \
@@ -15,7 +13,8 @@ WORKDIR /var/www
 
 # Upgrade pip so we don't see that warning
 # Install python packages
-RUN pip3 install --upgrade pip && pip3 install -r requirements/requirements.txt
+RUN pip install --upgrade pip && pip install pipenv
+RUN pipenv install --deploy --ignore-pipfile --system
 
 # Add gunicorn user
 RUN addgroup -g 50 -S www-data;\
