@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d3c2f9f2479a1af0c96f7a6f456da9ae39f38fd188b52bc08dca16afe76f90a3"
+            "sha256": "bd5b725cbcb98204894bd88a0ff8d6c203a3959c67bc47d4363a08487bfaa6eb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -74,13 +74,6 @@
             "index": "pypi",
             "version": "==3.0.4"
         },
-        "click": {
-            "hashes": [
-                "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
-                "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
-            ],
-            "version": "==7.0"
-        },
         "deepmerge": {
             "hashes": [
                 "sha256:cac54cae5e0afabfbad36cfc5cfa12224d319778b1f627b7d446fb9662a01b12",
@@ -141,9 +134,9 @@
         },
         "mako": {
             "hashes": [
-                "sha256:889c7f16d5388092d4c585cf9def19cad089e9f848a7c40e03394553048362a6"
+                "sha256:0cfa65de3a835e87eeca6ac856b3013aade55f49e32515f65d999f91a2324162"
             ],
-            "version": "==1.0.11"
+            "version": "==1.0.12"
         },
         "markupsafe": {
             "hashes": [
@@ -269,10 +262,11 @@
         },
         "python-dotenv": {
             "hashes": [
-                "sha256:26156022355d4457bc9062bcead7fde4824623d4463488b623bdd5ce912462fa"
+                "sha256:debd928b49dbc2bf68040566f55cdb3252458036464806f4094487244e2a4093",
+                "sha256:f157d71d5fec9d4bd5f51c82746b6344dffa680ee85217c123f4a0c8117c4544"
             ],
             "index": "pypi",
-            "version": "==0.1.0"
+            "version": "==0.10.3"
         },
         "python-editor": {
             "hashes": [

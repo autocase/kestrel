@@ -72,4 +72,6 @@ def is_json(my_json):
         json.loads(my_json)
     except json.JSONDecodeError:
         return False
+    except TypeError:
+        return False
     return True
