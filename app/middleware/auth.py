@@ -23,7 +23,7 @@ class AuthMiddleware:
                     href="http://docs.example.com/auth",
                 )
 
-            if not self._token_is_valid(token, account_id):
+            if not _token_is_valid(token, account_id):
                 description = (
                     "The provided auth token is not valid. "
                     "Please request a new token and try again."

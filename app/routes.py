@@ -1,9 +1,10 @@
-from app.db.manager import StorageError
+from app.db.database import StorageError
 from app.resources import users, status, not_found, swagger
 from app.resources.users import UserSchema
 
 
 def build_routes(db, app, spec):
+
     users_resource = users.UserResource(db=db)
     status_resource = status.StatusResource()
     swagger_resource = swagger.SwaggerResource(spec=spec)
