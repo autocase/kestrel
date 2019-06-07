@@ -1,7 +1,7 @@
 import pytest
 from falcon import testing
 
-from app.app import route
+from app.app import create_app
 
 
 @pytest.fixture()
@@ -11,7 +11,7 @@ def client():
 
     mock_db = Object()
     mock_db.session = {}
-    return testing.TestClient(route(mock_db))
+    return testing.TestClient(create_app(mock_db))
 
 
 def test_get_openapi_spec(client):
