@@ -41,6 +41,8 @@ class UserResource(BaseResource):
         """
         ---
         description: Add a user
+        security:
+            - BearerAuth: []
         responses:
           200:
             description: New user was saved successfully
