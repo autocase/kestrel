@@ -4,11 +4,10 @@ from wsgiref import simple_server
 import falcon
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
-from dotenv import load_dotenv
 from falcon_apispec import FalconPlugin
 
 from app.db.database import Database
-from app.environment import connection
+from app.environment import create_connection
 from app.middleware.auth import AuthMiddleware
 from app.middleware.json import RequireJSON, JSONTranslator
 from app.routes import build_routes
@@ -16,17 +15,16 @@ from app.routes import build_routes
 
 def application(env, start_response):
     set_logging()
-    load_dotenv()
     # Build an object to manage our db connections.
-    db = Database(connection)
+    db = Database(create_connection())
     db.setup()
 
-    app = route(db)
+    app = create_app(db)
 
     return app(env, start_response)
 
 
-def route(db):
+def create_app(db):
     """
 
     Args:

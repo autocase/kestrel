@@ -14,5 +14,5 @@ def handle_404(req, res):
         resp: The object being sent back to the Client
 
     """
-    log.info("404: Invalid route, request object:", req)
+    log.info("404: Invalid route")
     raise falcon.HTTPNotFound()
