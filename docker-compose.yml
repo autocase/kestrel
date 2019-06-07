@@ -23,9 +23,9 @@ services:
       - 5432
     # Setup the default user/pass
     environment:
-      POSTGRES_DB: dreamescape
-      POSTGRES_USER: dave
-      POSTGRES_PASSWORD: bowman
+      POSTGRES_DB: kestrel
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
 
   backend:
     build: 
