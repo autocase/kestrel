@@ -12,7 +12,7 @@ def build_routes(db, app, spec):
     app.add_route("/users", users_resource)
     spec.path(resource=users_resource)
 
-    app.add_route("/api", swagger_resource)
+    app.add_route("/openapi", swagger_resource)
 
     # If a responder ever raised an instance of StorageError, pass control to
     # the given handler.
