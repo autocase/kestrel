@@ -15,5 +15,5 @@ def client():
 
 
 def test_get_openapi_spec(client):
-    result = client.simulate_get("/api")
+    result = client.simulate_get("/openapi")
     assert result.json['openapi'] == '3.0.2'
