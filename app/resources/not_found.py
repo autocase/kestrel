@@ -1,4 +1,8 @@
+import logging
+
 import falcon
+
+log = logging.getLogger(__name__)
 
 
 def handle_404(req, res):
@@ -10,4 +14,5 @@ def handle_404(req, res):
         resp: The object being sent back to the Client
 
     """
+    log.info("404: Invalid route")
     raise falcon.HTTPNotFound()

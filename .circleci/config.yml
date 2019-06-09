@@ -1,0 +1,48 @@
+# Python CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.4
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.3
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+
+    working_directory: ~/fork
+
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Pipfile.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            sudo pip install pipenv
+            pipenv install --dev
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+
+      - run:
+          name: run tests
+          command: |
+            mkdir test-results
+            pipenv run pytest --flake8 --cov=app --cov-report=xml --cov-report=html
+
+      - codecov/upload:
+          flags: backend,unittest
+
+      - store_test_results:
+          path:  test-results
+
+      - store_artifacts:
+          path: htmlcov

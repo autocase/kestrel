@@ -1,6 +1,8 @@
 import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
 
+from app.session import session_scope
+
 SAModel = declarative_base()
 
 
@@ -18,15 +20,15 @@ class Users(SAModel):
         return {"Name": self.name}
 
     def save(self, session):
-        with session.begin():
-            session.add(self)
+        with session_scope(session) as se:
+            se.add(self)
 
     @classmethod
     def get_list(cls, session):
         models = []
 
-        with session.begin():
-            query = session.query(cls)
+        with session_scope(session) as se:
+            query = se.query(cls)
             models = query.all()
 
         return models

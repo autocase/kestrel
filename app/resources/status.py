@@ -1,6 +1,9 @@
+import logging
 import os
 
 import falcon
+
+log = logging.getLogger(__name__)
 
 
 class StatusResource:

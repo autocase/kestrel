@@ -1,4 +1,8 @@
+import logging
+
 import falcon
+
+log = logging.getLogger(__name__)
 
 
 class AuthMiddleware:
@@ -11,7 +15,7 @@ class AuthMiddleware:
 
             if token is None:
                 description = "Please provide an auth token as part of the request."
-
+                log.error("Missing Authorization header in request")
                 raise falcon.HTTPUnauthorized(
                     "Auth token required",
                     description,
@@ -19,12 +23,11 @@ class AuthMiddleware:
                     href="http://docs.example.com/auth",
                 )
 
-            if not self._token_is_valid(token, account_id):
+            if not _token_is_valid(token, account_id):
                 description = (
                     "The provided auth token is not valid. "
                     "Please request a new token and try again."
                 )
-
                 raise falcon.HTTPUnauthorized(
                     "Authentication required",
                     description,
@@ -34,5 +37,6 @@ class AuthMiddleware:
 
         return True
 
-    def _token_is_valid(self, token, account_id):
-        return True
+
+def _token_is_valid(token, account_id):
+    return True

@@ -1,0 +1,33 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+coverage = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-flake8 = "*"
+black = "==19.3b0"
+pre-commit = "*"
+sphinx = "*"
+
+[packages]
+requests = "==2.22.0"
+attrs = "==19.1.0"
+falcon = "==2.0.0"
+jsonschema = "==3.0.1"
+psycopg2-binary = "==2.8.2"
+marshmallow = "==2.19.2"
+falcon-apispec = "==0.1.0"
+alembic = "==1.0.10"
+python-dateutil = "==2.8.0"
+apispec = {extras = ["validation"],version = "*"}
+PyYAML = "==5.1"
+SQLAlchemy = "==1.3.4"
+uWSGI = "==2.0.18"
+python-dotenv = "==0.10.3"
+
+[requires]
+python_version = "3.7"

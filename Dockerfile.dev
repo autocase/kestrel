@@ -9,11 +9,12 @@ RUN set -ex \
         && apk add --no-cache --virtual .build-deps \
         build-base \
         linux-headers \
+        && apk add --no-cache make \
         && apk add --repository http://dl-cdn.alpinelinux.org/alpine/v3.6/main --no-cache \
         postgresql=9.6.13-r0 postgresql-dev=9.6.13-r0 \
         # Install python deps
         && pip install --no-cache-dir --upgrade pip pipenv \
-        && pipenv install --deploy --system \
+        && pipenv install --dev --deploy --system \
         # Cleanup build deps
         && apk del .build-deps postgresql-client postgresql \
         # Add gunicorn user
@@ -26,4 +27,3 @@ COPY . /var/www/
 
 # Run the server!
 CMD /bin/sh -c 'uwsgi --ini ./app/uwsgi.ini --py-autoreload 1'
-

@@ -1,47 +1,30 @@
-import os
+import logging
 from wsgiref import simple_server
 
 import falcon
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
+from falcon_apispec import FalconPlugin
 
-from app.db.manager import Database, StorageError
+from app.db.database import Database
+from app.environment import create_connection
 from app.middleware.auth import AuthMiddleware
 from app.middleware.json import RequireJSON, JSONTranslator
-from app.resources import users, status, not_found, swagger
-
-
-from apispec import APISpec
-from falcon_apispec import FalconPlugin
-from apispec.ext.marshmallow import MarshmallowPlugin
-
-from app.resources.users import UserSchema
+from app.routes import build_routes
 
 
 def application(env, start_response):
+    set_logging()
     # Build an object to manage our db connections.
-    try:
-        env_db_host = os.environ["DB_HOST"]
-        env_db_name = os.environ["DB_NAME"]
-        env_db_user = os.environ["DB_USER"]
-        env_db_pass = os.environ["DB_PASS"]
-    except KeyError:
-        raise falcon.HTTPInternalServerError(
-            description="The server could not reach the database, "
-            "please contact your account manager.",
-            code=9,
-        )
-
-    connection = "postgresql+psycopg2://{user}:{pwd}@{host}/{name}".format(
-        user=env_db_user, pwd=env_db_pass, host=env_db_host, name=env_db_name
-    )
-    db = Database(connection)
+    db = Database(create_connection())
     db.setup()
 
-    app = route(db)
+    app = create_app(db)
 
     return app(env, start_response)
 
 
-def route(db):
+def create_app(db):
     """
 
     Args:
@@ -59,26 +42,24 @@ def route(db):
         openapi_version="3.0.2",
         plugins=[FalconPlugin(app), MarshmallowPlugin()],
     )
+    spec.components.security_scheme(
+        "BearerAuth",
+        {"type": "http", "scheme": "bearer"}
+    )
 
     # Build routes
-    users_resource = users.UserResource(db=db)
-    status_resource = status.StatusResource()
-    swagger_resource = swagger.SwaggerResource(spec=spec)
-    app.add_route("/", status_resource)
-    app.add_route("/users", users_resource)
-    app.add_route("/docs", swagger_resource)
+    build_routes(db, app, spec)
 
-    # If a responder ever raised an instance of StorageError, pass control to
-    # the given handler.
-    app.add_error_handler(StorageError, StorageError.handle)
-    # Return a 404 Not Found for any requests not in the router
-    app.add_sink(not_found.handle_404, "")
-
-    spec.components.schema("Score", schema=UserSchema)
-    # Register entities and paths
-    spec.path(resource=users_resource)
-    # spec.path(resource=status_resource)
     return app
+
+
+def set_logging():
+    logger = logging.getLogger()
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
 
 
 # Useful for debugging problems in your API; works with pdb.set_trace().
