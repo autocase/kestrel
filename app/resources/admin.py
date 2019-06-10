@@ -1,15 +1,7 @@
 import logging
-import requests
-
 import falcon
-from falcon.media.validators.jsonschema import validate
-from marshmallow import Schema, fields
-from sqlalchemy.exc import IntegrityError
 
-from app.db import models
 from app.resources import BaseResource
-from app.schemas import load_schema
-
 from app.mail import send_email_to
 
 log = logging.getLogger(__name__)
