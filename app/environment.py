@@ -5,7 +5,6 @@ from falcon import HTTPInternalServerError
 
 load_dotenv()
 
-
 def create_connection():
     # Build an object to manage our db connections.
     try:
@@ -26,3 +25,12 @@ def create_connection():
 
 
 IN_PRODUCTION = os.getenv("IN_PRODUCTION", False)
+
+try:
+    env_sendgrid_key = os.environ["SENDGRID_API_KEY"]
+except KeyError:
+    raise HTTPInternalServerError(
+        description="The server could not initiate a SendGrid endpoint, "
+        "please contact your account manager.",
+        code=9,
+    )
