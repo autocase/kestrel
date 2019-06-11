@@ -42,10 +42,7 @@ def create_app(db):
         openapi_version="3.0.2",
         plugins=[FalconPlugin(app), MarshmallowPlugin()],
     )
-    spec.components.security_scheme(
-        "BearerAuth",
-        {"type": "http", "scheme": "bearer"}
-    )
+    spec.components.security_scheme("BearerAuth", {"type": "http", "scheme": "bearer"})
 
     # Build routes
     build_routes(db, app, spec)

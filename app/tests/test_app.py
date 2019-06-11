@@ -20,12 +20,12 @@ def spec(app):
         title="Test",
         version="1.0.0",
         openapi_version="3.0.2",
-        plugins=[FalconPlugin(app), MarshmallowPlugin()]
+        plugins=[FalconPlugin(app), MarshmallowPlugin()],
     )
     return spec
 
 
-class mockDB():
+class mockDB:
     def setup(self):
         return None
 

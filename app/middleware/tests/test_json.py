@@ -68,10 +68,10 @@ def test_require_json_no_content_header():
 
 
 def test_is_json():
-    a_json = is_json(json.dumps({'key': 'value'}))
+    a_json = is_json(json.dumps({"key": "value"}))
     assert a_json is True
 
 
 def test_is_not_json():
-    not_json = is_json({'key': 'value'})
+    not_json = is_json({"key": "value"})
     assert not_json is False

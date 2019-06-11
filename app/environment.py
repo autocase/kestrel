@@ -5,6 +5,7 @@ from falcon import HTTPInternalServerError
 
 load_dotenv()
 
+
 def create_connection():
     # Build an object to manage our db connections.
     try:

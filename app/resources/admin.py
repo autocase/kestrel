@@ -28,7 +28,7 @@ class AdminResource(BaseResource):
                 schema:
                     type: array
         """
-        send_email_to('test')
+        send_email_to("test")
 
         resp.status = falcon.HTTP_200
-        resp.media = {"email": 'success'}
+        resp.media = {"email": "success"}
