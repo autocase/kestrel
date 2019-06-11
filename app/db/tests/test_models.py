@@ -7,12 +7,12 @@ from app.db.models import Users
 
 @pytest.fixture()
 def users():
-    return Users('test')
+    return Users("test")
 
 
 def test_models(users):
     name = users.as_dict
-    assert name == {'Name': 'test'}
+    assert name == {"Name": "test"}
 
 
 @patch("app.db.models.session_scope")

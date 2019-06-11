@@ -28,6 +28,7 @@ PyYAML = "==5.1.*"
 SQLAlchemy = "==1.3.4"
 uWSGI = "==2.0.18"
 python-dotenv = "==0.10.3"
+sendgrid = "*"
 
 [requires]
 python_version = "3.7"

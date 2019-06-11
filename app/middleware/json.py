@@ -11,7 +11,8 @@ class RequireJSON:
         if not req.client_accepts_json:
             log.error("Request not in JSON format")
             raise falcon.HTTPNotAcceptable(
-                "This API only supports responses encoded as JSON.", href="https://www.json.org/"
+                "This API only supports responses encoded as JSON.",
+                href="https://www.json.org/",
             )
 
         if req.method in ("POST", "PUT"):
@@ -37,7 +38,9 @@ class JSONTranslator:
         body = req.stream.read()
         if not body:
             log.error("Empty request body")
-            raise falcon.HTTPBadRequest("Empty request body", "A valid JSON document is required.")
+            raise falcon.HTTPBadRequest(
+                "Empty request body", "A valid JSON document is required."
+            )
 
         try:
             req.context.doc = json.loads(body.decode("utf-8"))

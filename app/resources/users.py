@@ -57,7 +57,8 @@ class UserResource(BaseResource):
         except IntegrityError:
             log.exception("User already exists and can't be created again")
             raise falcon.HTTPBadRequest(
-                "Username exists", "Could not create user due to username already existing"
+                "Username exists",
+                "Could not create user due to username already existing",
             )
 
         resp.status = falcon.HTTP_201
