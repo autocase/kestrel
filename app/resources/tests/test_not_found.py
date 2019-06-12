@@ -14,6 +14,6 @@ def client():
     return testing.TestClient(create_app(mock_db))
 
 
-def test_get_openapi_spec(client):
-    result = client.simulate_get("/openapi")
-    assert result.json["openapi"] == "3.0.2"
+def test_not_found(client):
+    rest = client.simulate_get("/asdfg")
+    assert rest.status_code == 404

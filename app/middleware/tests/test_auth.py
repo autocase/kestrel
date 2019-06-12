@@ -9,7 +9,14 @@ class req:
         return header
 
 
+class res:
+    def __init__(self):
+        self.method = "POST"
+
+    def set_header(self, header, header_val):
+        return header
+
+
 def test_auth():
-    res = {}
-    result = AuthMiddleware().process_request(req(), res)
+    result = AuthMiddleware().process_request(req(), res())
     assert result is True

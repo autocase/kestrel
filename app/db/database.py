@@ -18,7 +18,7 @@ class Database:
     def __init__(self, connection):
         """"""
         self.engine = sqlalchemy.create_engine(connection)
-        self.db = scoping.scoped_session(orm.sessionmaker(bind=self.engine, autocommit=True))
+        self.db = scoping.scoped_session(orm.sessionmaker(bind=self.engine))
 
     @property
     def session(self):

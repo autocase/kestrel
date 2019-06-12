@@ -9,7 +9,6 @@ from falcon_apispec import FalconPlugin
 from app.db.database import Database
 from app.environment import create_connection
 from app.middleware.auth import AuthMiddleware
-from app.middleware.json import RequireJSON, JSONTranslator
 from app.routes import build_routes
 
 
@@ -33,7 +32,7 @@ def create_app(db):
     Returns:
 
     """
-    app = falcon.API(middleware=[AuthMiddleware(), RequireJSON(), JSONTranslator()])
+    app = falcon.API(middleware=[AuthMiddleware()])
 
     # Set up documentation object
     spec = APISpec(
@@ -42,10 +41,7 @@ def create_app(db):
         openapi_version="3.0.2",
         plugins=[FalconPlugin(app), MarshmallowPlugin()],
     )
-    spec.components.security_scheme(
-        "BearerAuth",
-        {"type": "http", "scheme": "bearer"}
-    )
+    spec.components.security_scheme("BearerAuth", {"type": "http", "scheme": "bearer"})
 
     # Build routes
     build_routes(db, app, spec)

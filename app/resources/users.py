@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 
 class UserSchema(Schema):
-    id = fields.Int()
+    id = fields.Int(required=False, primary_key=True)
     name = fields.Str(required=True)
 
 
@@ -29,9 +29,7 @@ class UserResource(BaseResource):
               application/json:
                 schema: UserSchema
         """
-        model_list = models.Users.get_list(self.db.session)
-
-        users = [model.as_dict for model in model_list]
+        users = models.Users.get_list(self.db.session)
 
         resp.status = falcon.HTTP_200
         resp.media = {"users": users}
@@ -40,25 +38,30 @@ class UserResource(BaseResource):
     def on_post(self, req, resp):
         """
         ---
-        description: Add a user
+        description: Add a new user
         security:
             - BearerAuth: []
+        requestBody:
+          content:
+            application/json:
+              schema: UserSchema
         responses:
           200:
             description: New user was saved successfully
             content:
               application/json:
                 schema: UserSchema
+          400:
+            description: User already exists error
+
         """
         model = models.Users(name=req.media.get("name"))
 
         try:
-            model.save(self.db.session)
+            user = model.save(self.db.session)
+            resp.status = falcon.HTTP_201
+            resp.media = user
         except IntegrityError:
-            log.exception("User already exists and can't be created again")
             raise falcon.HTTPBadRequest(
-                "Username exists", "Could not create user due to username already existing"
+                "Username already exists", "Could not create user due to username already existing"
             )
-
-        resp.status = falcon.HTTP_201
-        resp.media = {"id": model.id}
