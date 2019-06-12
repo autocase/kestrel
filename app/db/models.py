@@ -17,18 +17,20 @@ class Users(SAModel):
 
     @property
     def as_dict(self):
-        return {"Name": self.name}
+        return {"name": self.name, "id": self.id}
 
     def save(self, session):
         with session_scope(session) as se:
             se.add(self)
+            our_user = se.query(Users).filter_by(name=self.name).first()
+            result = our_user.as_dict
+        return result
 
     @classmethod
     def get_list(cls, session):
-        models = []
-
         with session_scope(session) as se:
             query = se.query(cls)
             models = query.all()
+            users = [model.as_dict for model in models]
 
-        return models
+        return users

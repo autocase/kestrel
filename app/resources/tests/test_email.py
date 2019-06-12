@@ -21,5 +21,13 @@ def test_get_message(send_email_to, client):
     send_email_to.return_value = {}
     expected = {"email": "success"}
 
-    result = client.simulate_get("/admin")
+    result = client.simulate_get("/email?email=bob@gmail.com")
     assert result.json == expected
+
+
+@patch("app.mail.send_email_to")
+def test_raise_error(send_email_to, client):
+    send_email_to.return_value = {}
+    result = client.simulate_get("/email")
+    assert result.status_code == 400
+    assert result.json["title"] == "Invalid parameter"

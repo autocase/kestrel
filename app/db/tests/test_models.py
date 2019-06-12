@@ -12,7 +12,7 @@ def users():
 
 def test_models(users):
     name = users.as_dict
-    assert name == {"Name": "test"}
+    assert {"name": "test", "id": None} == name
 
 
 @patch("app.db.models.session_scope")

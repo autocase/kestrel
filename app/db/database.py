@@ -18,9 +18,7 @@ class Database:
     def __init__(self, connection):
         """"""
         self.engine = sqlalchemy.create_engine(connection)
-        self.db = scoping.scoped_session(
-            orm.sessionmaker(bind=self.engine, autocommit=True)
-        )
+        self.db = scoping.scoped_session(orm.sessionmaker(bind=self.engine))
 
     @property
     def session(self):
@@ -37,8 +35,6 @@ class Database:
 class StorageError(Exception):
     @staticmethod
     def handle(ex, req, resp, params):
-        description = (
-            "Sorry, there was a problem with the database, please try again later."
-        )
+        description = "Sorry, there was a problem with the database, please try again later."
         log.error(description)
         raise falcon.HTTPError(falcon.HTTP_725, "Database Error", description)

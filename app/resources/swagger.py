@@ -12,9 +12,7 @@ class SwaggerResource(BaseResource):
     def on_get(self, req, resp):
         if validate_spec(self.spec):
             resp.status = falcon.HTTP_200
-            resp.set_header("Access-Control-Allow-Origin", "*")
-            resp.set_header("Access-Control-Allow-Methods", "*")
-            resp.set_header("Access-Control-Allow-Headers", "*")
+            resp.set_header("content-type", "application/json")
 
             resp.media = self.spec.to_dict()
         else:
