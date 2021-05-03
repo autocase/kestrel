@@ -1,7 +1,6 @@
 [![CircleCI](https://circleci.com/gh/autocase/kestrel.svg?style=svg)](https://circleci.com/gh/autocase/kestrel)
 [![codecov](https://codecov.io/gh/autocase/kestrel/branch/master/graph/badge.svg)](https://codecov.io/gh/autocase/kestrel)
 [![Requirements Status](https://requires.io/github/autocase/kestrel/requirements.svg?branch=development)](https://requires.io/github/autocase/kestrel/requirements/?branch=development)
-[![Updates](https://pyup.io/repos/github/autocase/kestrel/shield.svg)](https://pyup.io/repos/github/autocase/kestrel/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Kestrel

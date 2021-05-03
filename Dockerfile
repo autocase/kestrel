@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 WORKDIR /var/www
 ENV PIP_NO_CACHE_DIR=false
 COPY Pipfile Pipfile.lock /var/www/

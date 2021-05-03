@@ -42,8 +42,6 @@ services:
       - .env
     ports:
       - 8000:8000
-    expose:
-      - 8000
     user: root
     command: /bin/sh -c './docs/sphinx.sh & uwsgi --ini /var/www/app/uwsgi.ini --py-autoreload 1'
 

@@ -9,14 +9,14 @@ coverage = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-flake8 = "*"
-black = "==19.10b0"
+black = "==21.4b2"
 pre-commit = "*"
 sphinx = "*"
 
 [packages]
 requests = "*"
 attrs = "*"
-falcon = "*"
+falcon = "<3"
 jsonschema = "*"
 psycopg2-binary = "*"
 marshmallow = "*"
@@ -31,4 +31,4 @@ python-dotenv = "*"
 sendgrid = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
