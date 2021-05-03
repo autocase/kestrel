@@ -4,7 +4,7 @@ services:
     image: nginx:alpine
     container_name: "nginx"
     # Add our nginx configuration
-    volumes: 
+    volumes:
       - ./nginx/:/etc/nginx/conf.d/
       - ./:/var/www/
     ports:
@@ -29,22 +29,19 @@ services:
       POSTGRES_PASSWORD: password
 
   backend:
-    build: 
+    build:
       context: ./
-      dockerfile: Dockerfile.dev
     container_name: "backend"
     restart: always
     links:
       - db:database
       - redis:localRedis
-    volumes: 
+    volumes:
       - ./:/var/www/
     env_file:
       - .env
     ports:
       - 8000:8000
-    expose:
-      - 8000
     user: root
     command: /bin/sh -c './docs/sphinx.sh & uwsgi --ini /var/www/app/uwsgi.ini --py-autoreload 1'
 
