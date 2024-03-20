@@ -9,7 +9,7 @@ coverage = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-flake8 = "*"
-black = "==21.4b2"
+black = "==24.3.0"
 pre-commit = "*"
 sphinx = "*"
 
